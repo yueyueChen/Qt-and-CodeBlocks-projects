@@ -2,14 +2,27 @@
 #define OVENTIMER_H
 
 #include <QWidget>
+class QDateTime;
+class QTimer;
 
 class OvenTimer : public QWidget
 {
     Q_OBJECT
-
+protected:
+    void mousePressEvent(QMouseEvent *event);
+    void paintEvent(QPaintEvent *event);
+signals:
+    void timeout();
 public:
     OvenTimer(QWidget *parent = 0);
-    ~OvenTimer();
+    void draw(QPainter *painter);
+    int setDuration(int secs);
+    void Duration()const;
+
+private:
+    QDateTime finishTime;
+    QTimer *   updateTimer;
+    QTimer *finishTimer;
 };
 
 #endif // OVENTIMER_H
