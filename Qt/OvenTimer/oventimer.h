@@ -2,7 +2,7 @@
 #define OVENTIMER_H
 
 #include <QWidget>
-class QDateTime;
+#include <QDateTime>
 class QTimer;
 
 class OvenTimer : public QWidget
@@ -16,9 +16,8 @@ signals:
 public:
     OvenTimer(QWidget *parent = 0);
     void draw(QPainter *painter);
-    int setDuration(int secs);
-    void Duration()const;
-
+    void setDuration(int secs);
+    int Duration()const;
 private:
     QDateTime finishTime;
     QTimer *   updateTimer;
