@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include<iostream>
+using namespace std;
 #define MaxLength 100
 
 
@@ -43,5 +45,11 @@ int main()
 
     char *p2 = "dfsfhvhgs";
     palindromeJudge(p2,strlen(p2));
+
+	char *p3 = new char[];
+	printf("please input a string:\n");
+	cin >> p3;
+	palindromeJudge(p3,strlen(p3));
+
     return 0;
 }
