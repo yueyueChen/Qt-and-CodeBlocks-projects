@@ -36,9 +36,9 @@ void inOrderTraversal(BiTree root)
 {
 	if(root == NULL)
 		return;
-	preOrderTraversal(root->lchild);
+	inOrderTraversal(root->lchild);
 	printf("%s\n",root->data);
-	preOrderTraversal(root->rchild);
+	inOrderTraversal(root->rchild);
 }
 void preOrderTraversal(BiTree root)
 {
@@ -52,8 +52,8 @@ void postOrderTraversal(BiTree root)
 {
 	if(root == NULL)
 		return;
-	preOrderTraversal(root->lchild);
-	preOrderTraversal(root->rchild);
+	postOrderTraversal(root->lchild);
+	postOrderTraversal(root->rchild);
 	printf("%s\n",root->data);
 }
 BiTree changeLrChild(BiTree root)
