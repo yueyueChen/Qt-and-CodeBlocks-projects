@@ -1,8 +1,11 @@
 #include "diagramwindow.h"
 
-DiagramWindow::DiagramWindow(QWidget *parent)
-    : QMainWindow(parent)
+#include <QtWidgets>
+
+DiagramWindow::DiagramWindow()
 {
+    scene = new QGraphicsScene(0,0,600,500);
+
 }
 
 DiagramWindow::~DiagramWindow()

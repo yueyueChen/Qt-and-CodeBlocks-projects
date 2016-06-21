@@ -1,49 +1,34 @@
 #include "functiontest.h"
 #include <QtWidgets>
+#include <opencv2/opencv.hpp>
+using namespace cv;
 
-int j =0;
-FunctionTest::FunctionTest(QWidget *parent): QWidget(parent)
+QVideoFrame MyFilterRunable::run(QVideoFrame *input, const QVideoSurfaceFormat &surfaceFormat, RunFlags flags)
 {
-    resize(600,600);
-    updateTimer = new QTimer;
-    connect(updateTimer,SIGNAL(timeout()),this,SLOT(update()));
-    finishTimer = new QTimer;
-    finishTimer->setSingleShot(true);
-    connect(finishTimer,SIGNAL(timeout()),updateTimer,SLOT(stop()));
-}
+    if(input->isValid()){
+            input->map(QAbstractVideoBuffer::ReadWrite);
+            /// QVideoFrame to cv::Mat
+            Mat cvImg = Mat(input->height(),input->width(), CV_8UC3,input->bits(),input->bytesPerLine());
 
-void FunctionTest::setShowedNumber(int num)
-{
-    for(int i = num; i >= 0;--i)
-        numbers.push_back(i);
-}
-void FunctionTest::mousePressEvent(QMouseEvent *event)
-{
-    int row = event->pos().x();
-    setShowedNumber(row);
-    updateTimer->start(1 * 1000);
-    finishTimer->start(10 * 1000);
-}
-void FunctionTest::paintEvent(QPaintEvent *event)
-{
-    QPainter painter(this);
+            /// Apply Filter
+            Mat edges;
 
-    painter.setWindow(0,0,200,200);
-    painter.setViewport(200,200,500,500);
-    painter.drawLine(QPoint(0,0),QPoint(200,200));
-    painter.setPen(QPen(Qt::lightGray,30));
-    QFont font;
-    font.setPointSize(8);
-    painter.setFont(font);
-    painter.drawText(10,100,tr("hello"));
-    if(numbers.isEmpty())
-        painter.drawText(100,100,tr("press anywhere to continue...."));
-    else
-        painter.drawText(100,100,tr("%1").arg(numbers[j]));
-    ++j;
-}
+            /// to grayscale
+            cvtColor(cvImg, edges, COLOR_YUV2GRAY_420);
 
-FunctionTest::~FunctionTest()
-{
+            /// apply filters
+            GaussianBlur(edges, edges, Size(7,7), 1.5, 1.5);
+            Canny(edges, edges, 0, 30, 3);
 
+            cv::putText(cvImg,"putStr",Point(200,200),3,1,Scalar(255,0,0));
+
+            /// convert to YUV420
+            cvtColor(edges,edges, COLOR_GRAY2RGB);
+            cvtColor(edges,edges, COLOR_RGB2YUV_I420);
+
+            ///  what to do here to send back the modified frame .....   ???
+            input->unmap();
+        }
+
+         return *input;
 }

@@ -13,6 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        diagramwindow.cpp
+        diagramwindow.cpp \
+    link.cpp \
+    node.cpp
 
-HEADERS  += diagramwindow.h
+HEADERS  += diagramwindow.h \
+    link.h \
+    node.h

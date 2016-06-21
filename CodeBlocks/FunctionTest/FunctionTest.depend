@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1464615202 source:d:\git\github\codeblocks\functiontest\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<ctime>
+

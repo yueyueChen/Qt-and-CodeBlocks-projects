@@ -1,0 +1,2 @@
+//use system cmd
+QProcess::startDetached("cmd.exe");

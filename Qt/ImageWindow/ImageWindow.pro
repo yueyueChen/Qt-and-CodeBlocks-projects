@@ -11,8 +11,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = ImageWindow
 TEMPLATE = app
 
-
+CONFIG  += console
 SOURCES += main.cpp\
-        imagewindow.cpp
+        imagewindow.cpp \
+    transactionthread.cpp
 
-HEADERS  += imagewindow.h
+HEADERS  += imagewindow.h \
+    transactionthread.h
+
+FORMS += \
+    resizeimage.ui

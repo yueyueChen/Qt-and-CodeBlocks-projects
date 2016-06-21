@@ -2,6 +2,7 @@
 #define THREADDIALOG_H
 
 #include <QDialog>
+#include"thread.h"
 
 class ThreadDialog : public QDialog
 {
@@ -9,7 +10,17 @@ class ThreadDialog : public QDialog
 
 public:
     ThreadDialog(QWidget *parent = 0);
-    ~ThreadDialog();
+protected:
+    void closeEvent(QEvent *event);
+private slots:
+    void startOrStopThreadA();
+    void startOrStopThreadB();
+private:
+    Thread threadA;
+    Thread threadB;
+    QPushButton *threadButtonA;
+    QPushButton *threadButtonB;
+    QPushButton *quitButton;
 };
 
 #endif // THREADDIALOG_H
